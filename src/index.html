@@ -22,9 +22,11 @@
             border-color: #dc3545 !important;
             background-color: #f8d7da !important;
         }
+
         .payment-buttons {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
         .payment-button {
             display: flex;
@@ -32,44 +34,52 @@
             gap: 10px;
             cursor: pointer;
             position: relative;
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
         }
+
         .payment-button input[type="radio"] {
             display: none;
         }
-        .payment-button input[type="radio"]:checked + .circle {
+
+        .payment-button .custom-radio {
+            width: 16px;
+            height: 16px;
             border: 2px solid #007bff;
-            background-color: #007bff;
-        }
-        .payment-button input[type="radio"]:checked + .circle i {
-            color: white;
-        }
-        .circle {
-            width: 40px;
-            height: 40px;
             border-radius: 50%;
-            border: 2px solid #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
         }
-        .circle i {
+
+        .payment-button input[type="radio"]:checked + .custom-radio::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 8px;
+            height: 8px;
+            background-color: #007bff;
+            border-radius: 50%;
+        }
+
+        .payment-button:hover {
+            background-color: #e9f5ff;
+        }
+
+        .payment-button i {
             font-size: 20px;
             color: #007bff;
         }
-        .circle:hover {
-            border: 2px solid #007bff;
-        }
-        .circle:hover i {
-            color: white;
-        }
+
         .message-container {
             display: flex;
             justify-content: flex-end;
             margin-top: 20px;
         }
+
         .message-container .form-control {
-            width: 60%;
+            width: 250%;
         }
     </style>
 </head>
@@ -81,17 +91,17 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="form-label">Card #</label>
-                    <input type="text" class="form-control" id="cardNumber" required>
+                    <input type="number" class="form-control" id="cardNumber" min="0" step="1" required>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">CVC #</label>
-                    <input type="text" class="form-control" id="cvc" required>
+                    <input type="number" class="form-control" id="cvc" min="0" step="1" required>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">Amount</label>
                     <div class="input-group">
                         <span class="input-group-text">$</span>
-                        <input type="text" class="form-control" id="amount" required>
+                        <input type="number" class="form-control" id="amount" step="0.01" min="0" required>
                     </div>
                 </div>
             </div>
@@ -120,7 +130,7 @@
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">Postal Code</label>
-                    <input type="text" class="form-control" id="postalCode" required>
+                    <input type="number" class="form-control" id="postalCode" min="0" step="1" required>
                 </div>
             </div>
 
@@ -136,31 +146,27 @@
             <div class="d-flex justify-content-between">
                 <div class="payment-buttons">
                     <label class="payment-button">
-                        <input type="radio" name="paymentMethod" value="visa" id="visa">
-                        <div class="circle">
-                            <i class="fa-brands fa-cc-visa"></i>
-                        </div>
+                        <input type="radio" name="paymentMethod" value="visa">
+                        <span class="custom-radio"></span>
+                        <i class="fa-brands fa-cc-visa fa-xl"></i>
                         <span>Visa</span>
                     </label>
                     <label class="payment-button">
-                        <input type="radio" name="paymentMethod" value="mastercard" id="mastercard">
-                        <div class="circle">
-                            <i class="fa-brands fa-cc-mastercard"></i>
-                        </div>
+                        <input type="radio" name="paymentMethod" value="mastercard">
+                        <span class="custom-radio"></span>
+                        <i class="fa-brands fa-cc-mastercard fa-xl"></i>
                         <span>MasterCard</span>
                     </label>
                     <label class="payment-button">
-                        <input type="radio" name="paymentMethod" value="credit-card" id="credit-card">
-                        <div class="circle">
-                            <i class="fa-solid fa-credit-card"></i>
-                        </div>
+                        <input type="radio" name="paymentMethod" value="credit-card">
+                        <span class="custom-radio"></span>
+                        <i class="fa-solid fa-credit-card fa-xl"></i>
                         <span>Credit Card</span>
                     </label>
                     <label class="payment-button">
-                        <input type="radio" name="paymentMethod" value="apple-pay" id="apple-pay">
-                        <div class="circle">
-                            <i class="fa-brands fa-cc-apple-pay"></i>
-                        </div>
+                        <input type="radio" name="paymentMethod" value="apple-pay">
+                        <span class="custom-radio"></span>
+                        <i class="fa-brands fa-cc-apple-pay fa-xl"></i>
                         <span>Apple Pay</span>
                     </label>
                 </div>
